@@ -1,3 +1,7 @@
+const sekolahLayer = L.layerGroup();
+const puskesmasLayer = L.layerGroup();
+const desaLayer = L.layerGroup();
+
 // Sekolah
 fetch('data/sekolah.geojson')
   .then(res => res.json())
@@ -9,7 +13,7 @@ fetch('data/sekolah.geojson')
       pointToLayer: (feature, latlng) => {
         return L.circleMarker(latlng, { radius: 6, fillColor: "blue", color: "#fff", weight: 1 });
       }
-    }).addTo(map);
+    }).addTo(sekolahLayer);
   });
 
 // Puskesmas
@@ -23,10 +27,10 @@ fetch('data/puskesmas.geojson')
       pointToLayer: (feature, latlng) => {
         return L.circleMarker(latlng, { radius: 6, fillColor: "green", color: "#fff", weight: 1 });
       }
-    }).addTo(map);
+    }).addTo(puskesmasLayer);
   });
 
-// Desa (polygon)
+// Desa
 fetch('data/desa.geojson')
   .then(res => res.json())
   .then(data => {
@@ -39,5 +43,20 @@ fetch('data/desa.geojson')
         weight: 2,
         fillOpacity: 0.2
       }
-    }).addTo(map);
+    }).addTo(desaLayer);
   });
+
+// Tambahkan ke map
+sekolahLayer.addTo(map);
+puskesmasLayer.addTo(map);
+desaLayer.addTo(map);
+
+// Layer control
+const baseLayers = {};
+const overlays = {
+  "Sekolah": sekolahLayer,
+  "Puskesmas": puskesmasLayer,
+  "Desa": desaLayer
+};
+
+L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map);
