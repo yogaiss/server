@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nama_sekolah": "SDN Contoh 01",
+        "npsn": "12345678",
+        "jenjang": "SD",
+        "alamat": "Jl. Contoh No. 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.8, -6.2]
+      }
+    }
+  ]
+}
